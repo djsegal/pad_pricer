@@ -6,7 +6,6 @@ import matplotlib.pyplot as plt
 from shapely.ops import unary_union
 from shapely.geometry import JOIN_STYLE
 
-
 world = geopandas.read_file(geopandas.datasets.get_path('naturalearth_lowres'))
 
 world = world[
