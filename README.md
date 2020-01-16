@@ -1,2 +1,2 @@
-# price_my_pad
+# Pad Pricer
 Airbnb Price Predictor
