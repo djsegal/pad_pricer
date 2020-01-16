@@ -13,31 +13,143 @@
       html, body, .cs-full-height {
         height: 100%;
       }
+
+      .cs-center-text {
+        text-align: center;
+      }
+
+      .gmnoprint a, .gmnoprint span, .gm-style-cc {
+          display:none;
+      }
     </style>
 
-    <title>Pad Pricer</title>
+    <title>Pad Pricer 🏠</title>
   </head>
 
   <body style="padding-top: 56px;">
 
     <nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top">
-      <a class="navbar-brand" href="#">Pad Pricer</a>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+      <a class="navbar-brand mr-auto" href="">Pad Pricer</a>
+
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
-      <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-        <div class="navbar-nav">
-          <a class="nav-item nav-link active" href="#">Home <span class="sr-only">(current)</span></a>
-          <a class="nav-item nav-link" href="#">Features</a>
-          <a class="nav-item nav-link" href="#">Pricing</a>
-          <a class="nav-item nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
+
+      <div class="collapse navbar-collapse" id="navbarText">
+        <div class="dropdown-divider my-3 d-lg-none"></div>
+        <form class="px-4 py-3 d-lg-none text-light">
+          <div class="form-group row pb-3 pb-sm-0">
+            <label for="staticEmail" class="d-none d-sm-block col-sm-5 col-form-label text-right">City</label>
+            <div class="offset-1 offset-sm-0 col-10 col-sm-4">
+              <select class="form-control text-center js-city-select" style="text-align-last: center;">
+                <option value="new-york" selected>New York</option>
+                <option value="san-francisco">San Francisco</option>
+                <option value="paris">Paris</option>
+                <option value="berlin">Berlin</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group row">
+            <label for="staticEmail" class="col-6 col-sm-5 col-form-label text-right">Guests</label>
+            <div class="col-4">
+              <input type="number" class="form-control cs-center-text js-guests" min="1" max="8" value=4>
+            </div>
+          </div>
+          <div class="form-group row">
+            <label for="staticEmail" class="col-6 col-sm-5 col-form-label text-right">Bedrooms</label>
+            <div class="col-4">
+              <input type="number" class="form-control cs-center-text js-bedrooms" min="1" max="4" value=1>
+            </div>
+          </div>
+          <div class="form-group row">
+            <label for="staticEmail" class="col-6 col-sm-5 col-form-label text-right">Bathrooms</label>
+            <div class="col-4">
+              <input type="number" class="form-control cs-center-text js-bathrooms" min="1" max="4" value=1>
+            </div>
+          </div>
+        </form>
+        <div class="text-light mb-1 text-right d-lg-none">
+          Powered by <a target="_blank" style="text-decoration: underline" class="text-light" href="http://insideairbnb.com/get-the-data.html">Airbnb</a>
         </div>
       </div>
+
+      <ul class="navbar-nav d-none d-lg-block">
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            New York
+          </a>
+          <div class="dropdown-menu dropdown-menu-right text-right" id="js-city-dropdown" aria-labelledby="navbarDropdownMenuLink">
+            <a class="dropdown-item d-none js-new-york" onclick="toggleCity('new-york')">New York</a>
+            <a class="dropdown-item js-san-francisco" onclick="toggleCity('san-francisco')">San Francisco</a>
+            <a class="dropdown-item js-paris" onclick="toggleCity('paris')">Paris</a>
+            <a class="dropdown-item js-berlin" onclick="toggleCity('berlin')">Berlin</a>
+          </div>
+        </li>
+      </ul>
     </nav>
 
-    <div class="container cs-full-height py-5">
-      <div class="jumbotron cs-full-height mb-0">
-        Place Holder
+    <div class="container-fluid cs-full-height">
+      <div class="row cs-full-height">
+        <div class="col-lg-4 px-0 d-none d-lg-block cs-full-height">
+          <div class="jumbotron jumbotron-fluid cs-full-height mb-0 px-4 py-5">
+
+            <h4> Features </h4>
+            <hr>
+            <br>
+
+            <form>
+
+              <div class="form-group">
+                <label for="guestsRange">Guests</label>
+                <div class="form-row">
+                  <div class="col-9">
+                    <input type="range" class="custom-range cs-full-height js-guests" min="1" max="8" value=4 id="guestsRange">
+                  </div>
+                  <div class="col-3">
+                    <input type="number" class="form-control cs-center-text js-guests" min="1" max="8" value=4>
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label for="bedroomsRange">Bedrooms</label>
+                <div class="form-row">
+                  <div class="col-9">
+                    <input type="range" class="custom-range cs-full-height js-bedrooms" min="1" max="4" value=1 id="bedroomsRange">
+                  </div>
+                  <div class="col-3">
+                    <input type="number" class="form-control cs-center-text js-bedrooms" min="1" max="4" value=1>
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label for="bathroomsRange">Bathrooms</label>
+                <div class="form-row">
+                  <div class="col-9">
+                    <input type="range" class="custom-range cs-full-height js-bathrooms" min="1" max="4" value=1 id="bathroomsRange">
+                  </div>
+                  <div class="col-3">
+                    <input type="number" class="form-control cs-center-text js-bathrooms" min="1" max="4" value=1>
+                  </div>
+                </div>
+              </div>
+
+            </form>
+
+            <div style="position: absolute; bottom: 16px;">
+              Powered by <a target="_blank" href="http://insideairbnb.com/get-the-data.html">Airbnb</a>
+            </div>
+
+          </div>
+        </div>
+        <div class="col-lg-8 p-4 p-sm-5">
+          <div class="jumbotron cs-full-height p-3 m-0" style="position: relative">
+            <h2 style="position: absolute; right: 24px; top: 24px; z-index: 1; pointer-events: none;"><span class="badge badge-lg badge-success border border-success">$100</span></h2>
+            <div class="cs-full-height card" id="map" style="border: none;">
+            </div>
+          </div>
+        </div>
       </div>
     </div>
 
@@ -46,6 +158,59 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+
+    <script>
+      const array = ["guests", "bedrooms", "bathrooms"]
+
+      array.forEach(function (item, index) {
+        $(document).on("change", ".js-" + item, function(curEvent) {
+          $(".js-" + item).val(curEvent.target.valueAsNumber);
+        });
+      });
+    </script>
+
+    <script>
+      var map;
+      function initMap() {
+        map = new google.maps.Map(document.getElementById('map'), {
+          center: {lat: 40.7128, lng: -74.0060},
+          zoom: 12,
+          minZoom: 11,
+          maxZoom: 20,
+          mapTypeControl: false,
+          streetViewControl: false,
+          fullscreenControl: false
+        });
+      }
+    </script>
+
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCR8H32g_VhI6inHswabgSFSC32-E3bP0Y&callback=initMap"
+    async defer></script>
+
+    <script>
+      function titleize(sentence) {
+        if(!sentence.split) return sentence;
+        var _titleizeWord = function(string) {
+            return string.charAt(0).toUpperCase() + string.slice(1).toLowerCase();
+          },
+          result = [];
+        sentence.replace("_", " ").replace("-", " ").split(" ").forEach(function(w) {
+          result.push(_titleizeWord(w));
+        });
+        return result.join(" ");
+      }
+
+      $(".js-city-select").change(function(curEvent) {
+        toggleCity($('.js-city-select option:selected').val());
+      });
+
+      function toggleCity(curCity) {
+        $("#navbarDropdownMenuLink").text(" " + titleize(curCity) + " ");
+        $("#js-city-dropdown a").removeClass("d-none");
+        $(".js-" + curCity).addClass("d-none");
+        $('.js-city-select option:contains("' + titleize(curCity) + '")').prop('selected', true)
+      }
+    </script>
 
   </body>
 
