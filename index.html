@@ -112,7 +112,7 @@
             <hr>
             <br>
 
-            <form>
+            <form class="js-desktop-form">
 
               <div class="form-group">
                 <label for="guestsRange">Guests</label>
@@ -152,7 +152,7 @@
 
             </form>
 
-            <div style="position: absolute; bottom: 16px;">
+            <div class="js-powered-by" style="position: absolute; bottom: 16px;">
               Powered by <a target="_blank" href="http://insideairbnb.com/get-the-data.html">Airbnb</a>
             </div>
 
@@ -186,6 +186,46 @@
     </script>
 
     <script>
+      doElsCollide = function(el1, el2) {
+          el1.offsetBottom = el1.offsetTop + el1.offsetHeight;
+          el1.offsetRight = el1.offsetLeft + el1.offsetWidth;
+          el2.offsetBottom = el2.offsetTop + el2.offsetHeight;
+          el2.offsetRight = el2.offsetLeft + el2.offsetWidth;
+
+          return !((el1.offsetBottom < el2.offsetTop) ||
+                   (el1.offsetTop > el2.offsetBottom) ||
+                   (el1.offsetRight < el2.offsetLeft) ||
+                   (el1.offsetLeft > el2.offsetRight))
+      };
+
+      var rtime;
+      var timeout = false;
+      var delta = 50;
+
+      $(document).ready(function () {
+        $(window).trigger('resize');
+      });
+
+      $(window).on('resize', function () {
+        rtime = new Date();
+        if (timeout === false) {
+            timeout = true;
+            setTimeout(resizeend, delta);
+        }
+      })
+
+      function resizeend() {
+          if (new Date() - rtime < delta) {
+              setTimeout(resizeend, delta);
+          } else {
+              timeout = false;
+              $(".js-powered-by").removeClass("d-none");
+              if ( doElsCollide($(".js-desktop-form")[0], $(".js-powered-by")[0]) ) {
+                $(".js-powered-by").addClass("d-none");
+              }
+          }
+      }
+
       $(window).on('resize', function () {
         $('.navbar-collapse').collapse('hide');
       })
