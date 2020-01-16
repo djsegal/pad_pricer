@@ -21,6 +21,21 @@
       .gmnoprint a, .gmnoprint span, .gm-style-cc {
           display:none;
       }
+
+      .cs-price {
+        pointer-events: none;
+        position: absolute;
+        z-index: 1;
+        transition: opacity 400ms;
+      }
+
+      .js-custom-hidden {
+        opacity: 0 !important;
+      }
+
+      a[href^="https://maps.google.com/maps"] img {
+        transition: opacity 400ms;
+      }
     </style>
 
     <title>Pad Pricer 🏠</title>
@@ -31,11 +46,11 @@
     <nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top">
       <a class="navbar-brand mr-auto" href="">Pad Pricer</a>
 
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#js-hamburger" aria-controls="js-hamburger" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
 
-      <div class="collapse navbar-collapse" id="navbarText">
+      <div class="collapse navbar-collapse" id="js-hamburger">
         <div class="dropdown-divider my-3 d-lg-none"></div>
         <form class="px-4 py-3 d-lg-none text-light">
           <div class="form-group row pb-3 pb-sm-0">
@@ -145,9 +160,10 @@
         </div>
         <div class="col-lg-8 p-4 p-sm-5">
           <div class="jumbotron cs-full-height p-3 m-0" style="position: relative">
-            <h2 style="position: absolute; right: 24px; top: 24px; z-index: 1; pointer-events: none;"><span class="badge badge-lg badge-success border border-success">$100</span></h2>
+            <h2 class="cs-price js-price-top m-0" style="right: 24px; top: 24px;"><span class="badge badge-lg badge-success border border-success">$100</span></h2>
             <div class="cs-full-height card" id="map" style="border: none;">
             </div>
+            <h2 class="cs-price js-price-bot m-0 js-custom-hidden" style="left: 24px; bottom: 24px;"><span class="badge badge-lg badge-success border border-success">$100</span></h2>
           </div>
         </div>
       </div>
@@ -167,6 +183,26 @@
           $(".js-" + item).val(curEvent.target.valueAsNumber);
         });
       });
+    </script>
+
+    <script>
+      $(window).on('resize', function () {
+        $('.navbar-collapse').collapse('hide');
+      })
+
+      $('#js-hamburger').on('show.bs.collapse', function () {
+        $(".js-price-top").addClass('js-custom-hidden');
+        $(".js-price-bot").removeClass('js-custom-hidden');
+
+        $('a[href^="https://maps.google.com/maps"] img').addClass("js-custom-hidden");
+      })
+
+      $('#js-hamburger').on('hide.bs.collapse', function () {
+        $(".js-price-top").removeClass('js-custom-hidden');
+        $(".js-price-bot").addClass('js-custom-hidden');
+
+        $('a[href^="https://maps.google.com/maps"] img').removeClass("js-custom-hidden");
+      })
     </script>
 
     <script>
@@ -208,7 +244,7 @@
             return string.charAt(0).toUpperCase() + string.slice(1).toLowerCase();
           },
           result = [];
-        sentence.replace("_", " ").replace("-", " ").split(" ").forEach(function(w) {
+        sentence.replace(/\_/g, " ").replace(/\-/g, " ").split(" ").forEach(function(w) {
           result.push(_titleizeWord(w));
         });
         return result.join(" ");
