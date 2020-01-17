@@ -1,6 +1,6 @@
-const cityList = ["san-francisco"]; // ["new-york-city", "san-francisco", "paris", "berlin"];
+var cityData = {};
 
-cityData = {}
+const cityList = ["new-york-city", "san-francisco", "paris", "berlin"];
 
 cityList.forEach(function (cityName) {
   cityData[cityName] = {};
