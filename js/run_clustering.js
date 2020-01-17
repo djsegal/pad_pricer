@@ -21,11 +21,18 @@ function runClustering() {
   console.log("clustering ...done")
 
   Object.values(cityHotSpots).forEach(function (curHotSpots) {
+    curHotSpots = curHotSpots.sort((a, b) => (a[2] > b[2]) ? -1 : +1)
+    curHotSpots = curHotSpots.slice(0,10);
+
     return curHotSpots.forEach(function (curCentroid, curIndex) {
       new google.maps.Marker({
         position: {lat: curCentroid[0], lng: curCentroid[1]},
         map: map,
-        title: ("+" + curIndex + " ~ $" + Math.round(curCentroid[2]))
+        icon: {
+          url: "http://maps.google.com/mapfiles/kml/paddle/" + (curIndex+1) + "-lv.png",
+          scaledSize: new google.maps.Size(20, 20)
+        },
+        title: ("$" + Math.round(2*Math.pow(10, curCentroid[2])))
       });
     });
   });
@@ -61,7 +68,16 @@ function _runClustering(usedCity) {
 
   curScaler = StandardScaler();
 
-  clusterData.push((cityData[usedCity].y_train));
+  clusterTarget = Object.values(cityData[usedCity].y_train);
+  otherTarget = Object.values(cityData[usedCity].X_train["accommodates"]);
+
+  for (var i = 0; i < clusterTarget.length; i++) {
+    clusterTarget[i] /= Math.sqrt(otherTarget[i]);
+    clusterTarget[i] = Math.log10(clusterTarget[i]);
+  }
+
+  clusterData.push(clusterTarget);
+
   clusterData = curScaler.fitTransform(clusterData).to2DArray()
 
   // City Center
