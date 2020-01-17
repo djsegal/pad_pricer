@@ -57,7 +57,7 @@
             <label for="staticEmail" class="d-none d-sm-block col-sm-5 col-form-label text-right">City</label>
             <div class="offset-1 offset-sm-0 col-10 col-sm-4">
               <select class="form-control text-center js-city-select" style="text-align-last: center;">
-                <option value="new-york" selected>New York</option>
+                <option value="new-york-city" selected>New York</option>
                 <option value="san-francisco">San Francisco</option>
                 <option value="paris">Paris</option>
                 <option value="berlin">Berlin</option>
@@ -94,7 +94,7 @@
             New York
           </a>
           <div class="dropdown-menu dropdown-menu-right text-right" id="js-city-dropdown" aria-labelledby="navbarDropdownMenuLink">
-            <a class="dropdown-item d-none js-new-york" onclick="toggleCity('new-york')">New York</a>
+            <a class="dropdown-item d-none js-new-york-city" onclick="toggleCity('new-york-city')">New York</a>
             <a class="dropdown-item js-san-francisco" onclick="toggleCity('san-francisco')">San Francisco</a>
             <a class="dropdown-item js-paris" onclick="toggleCity('paris')">Paris</a>
             <a class="dropdown-item js-berlin" onclick="toggleCity('berlin')">Berlin</a>
@@ -310,15 +310,20 @@
         $("#js-city-dropdown a").removeClass("d-none");
         $(".js-" + curCity).addClass("d-none");
         $('.js-city-select option:contains("' + titleize(curCity) + '")').prop('selected', true)
+
+        selectedCity = curCity;
+        $(document).trigger("updateCityMap");
       }
     </script>
 
     <script src="https://www.lactame.com/lib/ml/4.0.0/ml.min.js"></script>
     <script src="js/ml_web.js"></script>
+    <script src="js/globals.js"></script>
     <script src="js/utils.js"></script>
     <script src="js/run_regression.js"></script>
     <script src="js/standard_scaler.js"></script>
     <script src="js/get_train_test_data.js"></script>
+    <script src="js/update_city_map.js"></script>
 
   </body>
 
