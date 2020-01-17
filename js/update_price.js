@@ -1,4 +1,12 @@
 function updatePrice() {
+
+  var cantPrice = (
+    Object.keys(curScalers).length == 0 ||
+    Object.keys(curRegressors).length == 0
+  );
+
+  if ( cantPrice ) { return; }
+
   var curInput = RegressorColumns.map(function (regressorCol) {
     return featureDict[regressorCol];
   });

@@ -20,6 +20,8 @@ function updateCityMap() {
     lng: cityBounds[selectedCity].centerLon
   })
 
+  $(document).trigger("updatePrice");
+
 }
 
 $(document).on("updateCityMap", updateCityMap);
