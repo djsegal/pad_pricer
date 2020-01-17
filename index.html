@@ -249,13 +249,24 @@
       var map;
       function initMap() {
         map = new google.maps.Map(document.getElementById('map'), {
-          center: {lat: 59.325, lng: 18.070},
+          center: {
+            lat: 40.73002123832882,
+            lng: -73.96227055646322
+          },
           zoom: 13,
-          minZoom: 11,
+          // minZoom: 10,
           maxZoom: 20,
           mapTypeControl: false,
           streetViewControl: false,
-          fullscreenControl: false
+          fullscreenControl: false,
+          restriction: {
+            latLngBounds: {
+              east: -73.72910709,
+              north: 40.9026,
+              south: 40.56251,
+              west: -74.14781
+            }
+          },
         });
 
         marker = new google.maps.Marker({
