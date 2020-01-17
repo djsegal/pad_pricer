@@ -20,6 +20,22 @@ function StandardScaler(name) {
     return cleanedData;
   };
 
+  curScaler.inverseTransform = function(XData) {
+    var cleanedData = new ML.Matrix(_XClean(XData));
+
+    for (var i = 0; i < cleanedData.columns; i++) {
+      var curCol = cleanedData.getColumn(i);
+
+      stdDev = curScaler.stdDevs[i];
+      mean = curScaler.means[i];
+
+      curCol = curCol.map(function(curVal) { return mean + curVal * stdDev });
+      cleanedData.setColumn(i, curCol)
+    }
+
+    return cleanedData;
+  };
+
   curScaler.fit = function(XData) {
     var cleanedData = new ML.Matrix(_XClean(XData));
 
