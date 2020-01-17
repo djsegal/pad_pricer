@@ -24,4 +24,4 @@ function runRegression() {
   console.log(R2(curRidge, XTest, yTest));
 }
 
-$(document).on("loadedAirbnbData", runRegression);
+$(document).on("clusteredAirbnbData", runRegression);
