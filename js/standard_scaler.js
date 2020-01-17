@@ -21,7 +21,12 @@ function StandardScaler(name) {
   };
 
   curScaler.inverseTransform = function(XData) {
-    var cleanedData = new ML.Matrix(_XClean(XData));
+    if ( typeof XData.getColumn === 'function' ) {
+      console.log("!!!")
+      var cleanedData = XData;
+    } else {
+      var cleanedData = new ML.Matrix(_XClean(XData));
+    }
 
     for (var i = 0; i < cleanedData.columns; i++) {
       var curCol = cleanedData.getColumn(i);

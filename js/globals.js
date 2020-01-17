@@ -1,3 +1,11 @@
+var RegressorColumns = ["accommodates", "bathrooms", "bedrooms"];
+
+var featureDict = {
+  accommodates: 4,
+  bathrooms: 1,
+  bedrooms: 1
+};
+
 var selectedCity = 'new-york-city';
 
 // var cityBounds = {};

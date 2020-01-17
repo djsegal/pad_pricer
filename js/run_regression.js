@@ -1,27 +1,38 @@
+curRegressors = {};
+curScalers = {};
+
 function runRegression() {
-  var usedCity = cityList[0] // REMOVE THIS!
-  var curRegression = RidgeRegression()
+  console.log("regression ...started")
+  cityList.forEach(_runRegression);
+  console.log("regression ...done")
+
+  $(document).trigger("updatePrice");
+}
+
+function _runRegression(usedCity) {
+  console.log(usedCity);
 
   var colNames = Object.keys(cityData[usedCity].X_train);
 
-  regressor_columns = ["accommodates", "bathrooms", "bedrooms"];
-
   curScaler = StandardScaler();
+  curScalers[usedCity] = curScaler;
 
-  XTrain = curScaler.fitTransform(cityData[usedCity].X_train).transpose().to2DArray();
-  var XTrain = XClean(pickCols(XTrain, regressor_columns, colNames));
+  var XTrain = pickCols(cityData[usedCity].X_train, RegressorColumns, colNames)
+  XTrain = XClean(curScaler.fitTransform(XTrain).transpose().to2DArray());
   var yTrain = yClean(cityData[usedCity].y_train);
 
-  curRidge = RidgeRegression()
-  curRidge.train(XTrain, yTrain)
+  var curRegression = RidgeRegression();
+  curRegression.train(XTrain, yTrain)
 
-  console.log(R2(curRidge, XTrain, yTrain));
+  console.log(R2(curRegression, XTrain, yTrain));
 
-  XTest = curScaler.transform(cityData[usedCity].X_test).transpose().to2DArray();
-  var XTest = XClean(pickCols(XTest, regressor_columns, colNames));
+  var XTest = pickCols(cityData[usedCity].X_test, RegressorColumns, colNames)
+  XTest = XClean(curScaler.transform(XTest).transpose().to2DArray());
   var yTest = yClean(cityData[usedCity].y_test);
 
-  console.log(R2(curRidge, XTest, yTest));
+  console.log(R2(curRegression, XTest, yTest));
+
+  curRegressors[usedCity] = curRegression
 }
 
 $(document).on("clusteredAirbnbData", runRegression);
