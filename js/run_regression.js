@@ -4,24 +4,12 @@ function runRegression() {
 
   var colNames = Object.keys(cityData[usedCity].X_train);
 
+  regressor_columns = ["accommodates", "bathrooms", "bedrooms"];
+
   curScaler = StandardScaler();
 
-  console.log(colNames)
-
-  function removeCols(XData) {
-    var usedCols = ["accommodates", "bathrooms", "bedrooms"];
-
-    usedColIndices = usedCols.map(function (usedCol) {
-      return colNames.indexOf(usedCol);
-    });
-
-    prunedXData = get(XData, [], usedColIndices);
-
-    return prunedXData;
-  }
-
   XTrain = curScaler.fitTransform(cityData[usedCity].X_train).transpose().to2DArray();
-  var XTrain = removeCols(XClean(XTrain));
+  var XTrain = XClean(pickCols(XTrain, regressor_columns, colNames));
   var yTrain = yClean(cityData[usedCity].y_train);
 
   curRidge = RidgeRegression()
@@ -30,7 +18,7 @@ function runRegression() {
   console.log(R2(curRidge, XTrain, yTrain));
 
   XTest = curScaler.transform(cityData[usedCity].X_test).transpose().to2DArray();
-  var XTest = removeCols(XClean(XTest));
+  var XTest = XClean(pickCols(XTest, regressor_columns, colNames));
   var yTest = yClean(cityData[usedCity].y_test);
 
   console.log(R2(curRidge, XTest, yTest));
