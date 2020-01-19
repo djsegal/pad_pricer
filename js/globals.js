@@ -1,3 +1,5 @@
+const cityList = ["new-york-city", "san-francisco", "paris", "berlin"];
+
 var RegressorColumns = ["accommodates", "bathrooms", "bedrooms"];
 
 var featureDict = {
