@@ -18,6 +18,10 @@ function _runRegression(usedCity) {
   curScalers[usedCity] = curScaler;
 
   var XTrain = pickCols(cityData[usedCity].X_train, RegressorColumns, colNames)
+  XTrain.push(
+    curLearners[usedCity].predict(prepareLearner(cityData[usedCity].X_train, usedCity))
+  )
+
   XTrain = XClean(curScaler.fitTransform(XTrain).transpose().to2DArray());
   var yTrain = yClean(cityData[usedCity].y_train);
 
@@ -27,6 +31,10 @@ function _runRegression(usedCity) {
   console.log(R2(curRegression, XTrain, yTrain));
 
   var XTest = pickCols(cityData[usedCity].X_test, RegressorColumns, colNames)
+  XTest.push(
+    curLearners[usedCity].predict(prepareLearner(cityData[usedCity].X_test, usedCity))
+  )
+
   XTest = XClean(curScaler.transform(XTest).transpose().to2DArray());
   var yTest = yClean(cityData[usedCity].y_test);
 
@@ -35,4 +43,4 @@ function _runRegression(usedCity) {
   curRegressors[usedCity] = curRegression
 }
 
-$(document).on("clusteredAirbnbData", runRegression);
+$(document).on("learnedAirbnbData", runRegression);

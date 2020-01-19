@@ -11,6 +11,10 @@ function updatePrice() {
     return featureDict[regressorCol];
   });
 
+  curInput.push(
+    curLearners[selectedCity].predict(prepareLearner(marker.getPosition(), selectedCity))[0]
+  )
+
   cur_input = curScalers[selectedCity].transform(
     customTranspose([curInput])
   );
