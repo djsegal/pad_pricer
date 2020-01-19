@@ -30,16 +30,15 @@ function runClustering() {
         map: map,
         icon: {
           url: "http://maps.google.com/mapfiles/kml/paddle/" + (curIndex+1) + "-lv.png",
-          scaledSize: new google.maps.Size(20, 20)
+          scaledSize: new google.maps.Size(22, 22)
         },
-        title: ("$" + Math.round(2*Math.pow(10, curCentroid[2])))
+        title: (curCurrency + Math.round(2*Math.pow(10, curCentroid[2])))
       });
     });
   });
 
   $(document).trigger("updateCityMap");
   $(document).trigger("clusteredAirbnbData");
-  $(document).trigger("customDone");
 }
 
 function _runClustering(usedCity) {

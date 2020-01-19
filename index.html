@@ -90,7 +90,7 @@
 
       <ul class="navbar-nav d-none d-lg-block">
         <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <a class="nav-link dropdown-toggle active" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             New York
           </a>
           <div class="dropdown-menu dropdown-menu-right text-right" id="js-city-dropdown" aria-labelledby="navbarDropdownMenuLink">
@@ -106,7 +106,7 @@
     <div class="container-fluid cs-full-height">
       <div class="row cs-full-height">
         <div class="col-lg-4 px-0 d-none d-lg-block cs-full-height">
-          <div class="jumbotron jumbotron-fluid cs-full-height mb-0 px-4 py-5">
+          <div class="jumbotron jumbotron-fluid cs-full-height mb-0 px-4 py-5 border-right border-secondary">
 
             <h4> Features </h4>
             <hr>
@@ -279,9 +279,9 @@
         marker = new google.maps.Marker({
           map: map,
           draggable: true,
-          animation: google.maps.Animation.DROP,
-          position: {lat: 59.327, lng: 18.067}
+          zIndex: 1000,
         });
+
         marker.addListener('dragend', dragMarker);
       }
     </script>
@@ -289,6 +289,7 @@
     <script>
       function dragMarker(curEvent) {
         console.log(curEvent.latLng.lng() + ", " + curEvent.latLng.lat());
+        $(document).trigger("updatePrice");
       }
     </script>
 
