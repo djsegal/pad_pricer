@@ -319,6 +319,13 @@
         $('.js-city-select option:contains("' + titleize(curCity) + '")').prop('selected', true)
 
         selectedCity = curCity;
+
+        if ( selectedCity == "berlin" || selectedCity == "paris" ) {
+          curCurrency= "€";
+        } else {
+          curCurrency= "$";
+        }
+
         $(document).trigger("updateCityMap");
       }
     </script>

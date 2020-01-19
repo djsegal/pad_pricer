@@ -8,6 +8,8 @@ var featureDict = {
 
 var selectedCity = 'new-york-city';
 
+var curCurrency= "$";
+
 // var cityBounds = {};
 // var cityHotSpots = {};
 

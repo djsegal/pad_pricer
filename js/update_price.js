@@ -19,7 +19,7 @@ function updatePrice() {
 
   curPrice = Math.pow(10, curPrice);
 
-  $(".js-price span").text("$" + Math.round(curPrice));
+  $(".js-price span").text(curCurrency + Math.round(curPrice));
 }
 
 $(document).on("updatePrice", updatePrice);
