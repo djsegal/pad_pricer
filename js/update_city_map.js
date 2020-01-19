@@ -20,6 +20,11 @@ function updateCityMap() {
     lng: cityBounds[selectedCity].centerLon
   })
 
+  marker.setPosition({
+    lat: cityBounds[selectedCity].centerLat,
+    lng: cityBounds[selectedCity].centerLon
+  })
+
   $(document).trigger("updatePrice");
 
 }
