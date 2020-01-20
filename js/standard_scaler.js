@@ -1,8 +1,17 @@
-function StandardScaler(name) {
+function StandardScaler(curMeans, curStdDevs) {
   const curScaler = {};
 
-  curScaler.means = [];
-  curScaler.stdDevs = [];
+  if ( typeof curMeans === "undefined" ) {
+    curScaler.means = [];
+  } else {
+    curScaler.means = curMeans;
+  }
+
+  if ( typeof curStdDevs === "undefined" ) {
+    curScaler.stdDevs = [];
+  } else {
+    curScaler.stdDevs = curStdDevs;
+  }
 
   curScaler.transform = function(XData) {
     var cleanedData = new ML.Matrix(_XClean(XData));
