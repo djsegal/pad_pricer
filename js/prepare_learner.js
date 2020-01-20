@@ -1,14 +1,14 @@
-function prepareLearner(X_input, usedCity) {
+function prepareLearner(XInput, usedCity) {
 
-  if ( typeof X_input.longitude !== "undefined" ) {
+  if ( typeof XInput.longitude !== "undefined" ) {
     XData = [
-      Object.values(X_input.longitude),
-      Object.values(X_input.latitude)
+      Object.values(XInput.longitude),
+      Object.values(XInput.latitude)
     ]
   } else {
     XData = [
-      [X_input.lng()],
-      [X_input.lat()]
+      [XInput.lng()],
+      [XInput.lat()]
     ]
   }
 
