@@ -8,12 +8,10 @@ function updatePrice() {
   if ( cantPrice ) { return; }
 
   var curInput = RegressorColumns.map(function (regressorCol) {
-    return featureDict[regressorCol];
+    return [featureDict[regressorCol]];
   });
 
-  curInput.push(
-    curLearners[selectedCity].predict(prepareLearner(marker.getPosition(), selectedCity))[0]
-  )
+  curInput = prepareRegression(curInput, marker.getPosition(), selectedCity, true)
 
   cur_input = curScalers[selectedCity].transform(
     customTranspose([curInput])
