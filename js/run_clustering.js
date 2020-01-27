@@ -29,7 +29,7 @@ function runClustering() {
         position: {lat: curCentroid[0], lng: curCentroid[1]},
         map: map,
         icon: {
-          url: "http://maps.google.com/mapfiles/kml/pal5/" + markerIconList[curIndex] + ".png",
+          url: "https://maps.google.com/mapfiles/kml/pal5/" + markerIconList[curIndex] + ".png",
           scaledSize: new google.maps.Size(22, 22)
         },
         title: (curCurrency + Math.round(2*Math.pow(10, curCentroid[2])))

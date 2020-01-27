@@ -25,7 +25,7 @@ function runMender() {
         position: {lat: curCentroid[0], lng: curCentroid[1]},
         map: map,
         icon: {
-          url: "http://maps.google.com/mapfiles/kml/pal5/" + markerIconList[Object.values(cityHotSpots)[curIndex].length+subIndex] + ".png",
+          url: "https://maps.google.com/mapfiles/kml/pal5/" + markerIconList[Object.values(cityHotSpots)[curIndex].length+subIndex] + ".png",
           scaledSize: new google.maps.Size(22, 22)
         },
         title: ( Math.round(100 * curCentroid[2]) + "%" )
