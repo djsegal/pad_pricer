@@ -17,8 +17,8 @@ function runRegression() {
   if ( needsRegression ) {
     var copyCat = JSON.parse(JSON.stringify(curRegressors));
 
-    copyCat["berlin"] = copyCat["berlin"].serializeModel()
-    copyCat["san-francisco"] = copyCat["san-francisco"].serializeModel()
+    copyCat["berlin"] = curRegressors["berlin"].serializeModel()
+    copyCat["san-francisco"] = curRegressors["san-francisco"].serializeModel()
 
     console.log("")
     console.log("curRegressors")
