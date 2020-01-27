@@ -164,6 +164,14 @@
             <div class="cs-full-height card" id="map" style="border: none;">
             </div>
             <h2 class="cs-price js-price js-price-bot m-0 js-custom-hidden" style="left: 24px; bottom: 24px;"><span class="badge badge-lg badge-success border border-success">$160</span></h2>
+
+            <div class="alert alert-info alert-dismissible fade show ml-3" style="position: absolute; left: 0; bottom: 0;" role="alert">
+              ℹ️ The price updates as you move the <span class="text-danger">red</span> marker.
+              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+
           </div>
         </div>
       </div>
@@ -290,7 +298,8 @@
 
     <script>
       function dragMarker(curEvent) {
-        console.log(curEvent.latLng.lng() + ", " + curEvent.latLng.lat());
+        $(".alert-dismissible .close").click();
+
         $(document).trigger("updatePrice");
       }
     </script>
