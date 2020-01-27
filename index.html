@@ -98,7 +98,7 @@
 
       <ul class="navbar-nav d-none d-lg-block">
         <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle active" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <a class="nav-link dropdown-toggle active" href="javascript:void(0)" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             New York
           </a>
           <div class="dropdown-menu dropdown-menu-right text-right" id="js-city-dropdown" aria-labelledby="navbarDropdownMenuLink">
@@ -445,6 +445,7 @@
                 if (event.which == 13 && !suggestion_selected) {
                   var simulated_downarrow = $.Event("keydown", { keyCode:40, which:40 });
                   orig_listener.apply(input, [simulated_downarrow]);
+                  event.preventDefault();
                 }
                 orig_listener.apply(input, [event]);
               };
