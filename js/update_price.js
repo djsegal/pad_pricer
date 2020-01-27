@@ -11,7 +11,11 @@ function updatePrice() {
     return [featureDict[regressorCol]];
   });
 
-  curInput = prepareRegression(curInput, marker.getPosition(), selectedCity, true)
+  markerPosition = marker.getPosition();
+
+  if ( typeof markerPosition === "undefined" ) { return; }
+
+  curInput = prepareRegression(curInput, markerPosition, selectedCity, true)
 
   cur_input = curScalers[selectedCity].transform(
     customTranspose([curInput])
