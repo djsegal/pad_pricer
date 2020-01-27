@@ -397,6 +397,8 @@
         autocomplete.addListener('place_changed', function() {
           var place = autocomplete.getPlace();
 
+          if ( place.name.trim() === "" ) { return; }
+
           marker.setPosition({
             lat: place.geometry.location.lat(),
             lng: place.geometry.location.lng()
