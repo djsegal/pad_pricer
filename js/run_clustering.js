@@ -25,15 +25,17 @@ function runClustering() {
     curHotSpots = curHotSpots.slice(0,10);
 
     return curHotSpots.forEach(function (curCentroid, curIndex) {
-      new google.maps.Marker({
+      tmpMarker = new google.maps.Marker({
         position: {lat: curCentroid[0], lng: curCentroid[1]},
         map: map,
         icon: {
-          url: "http://maps.google.com/mapfiles/kml/paddle/" + (curIndex+1) + "-lv.png",
+          url: "http://maps.google.com/mapfiles/kml/pal5/" + markerIconList[curIndex] + ".png",
           scaledSize: new google.maps.Size(22, 22)
         },
         title: (curCurrency + Math.round(2*Math.pow(10, curCentroid[2])))
       });
+
+      clusterer.addMarker(tmpMarker);
     });
   });
 

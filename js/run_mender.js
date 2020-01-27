@@ -15,20 +15,23 @@ function runMender() {
 
   console.log("mender ...done")
 
-  Object.values(cityErrorSpots).forEach(function (curErrorSpots) {
+  Object.values(cityErrorSpots).forEach(function (curErrorSpots, curIndex) {
     curErrorSpots = curErrorSpots.sort((a, b) => (Math.abs(a[2]) > Math.abs(b[2])) ? -1 : +1)
     curErrorSpots = curErrorSpots.slice(0,10);
 
-    return curErrorSpots.forEach(function (curCentroid, curIndex) {
-      new google.maps.Marker({
+
+    return curErrorSpots.forEach(function (curCentroid, subIndex) {
+      tmpMarker = new google.maps.Marker({
         position: {lat: curCentroid[0], lng: curCentroid[1]},
         map: map,
         icon: {
-          url: "http://maps.google.com/mapfiles/kml/pal3/icon" + (curIndex) + ".png",
+          url: "http://maps.google.com/mapfiles/kml/pal5/" + markerIconList[Object.values(cityHotSpots)[curIndex].length+subIndex] + ".png",
           scaledSize: new google.maps.Size(22, 22)
         },
         title: (curCurrency + Math.round(2*Math.pow(10, curCentroid[2])))
       });
+
+      clusterer.addMarker(tmpMarker);
     });
   });
 

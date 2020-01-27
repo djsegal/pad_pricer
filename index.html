@@ -408,6 +408,8 @@
           $(document).trigger("updatePrice");
         })
 
+        clusterer = new MarkerClusterer(map, [], {imagePath: "images/m"});
+
       }
     </script>
 
@@ -418,6 +420,8 @@
         $(document).trigger("updatePrice");
       }
     </script>
+
+    <script src="js/marker.js"></script>
 
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCR8H32g_VhI6inHswabgSFSC32-E3bP0Y&callback=initMap&libraries=places"
     async defer></script>
@@ -455,6 +459,39 @@
 
         $(document).trigger("updateCityMap");
       }
+    </script>
+
+    <script>
+      var markerIconDict = {
+        a: "icon48",
+        b: "icon49",
+        c: "icon50",
+        d: "icon51",
+        e: "icon52",
+        f: "icon53",
+        g: "icon54",
+        h: "icon55",
+        i: "icon32",
+        j: "icon33",
+        k: "icon34",
+        l: "icon35",
+        m: "icon36",
+        n: "icon37",
+        o: "icon38",
+        p: "icon39",
+        q: "icon16",
+        r: "icon17",
+        s: "icon18",
+        t: "icon19",
+        u: "icon20",
+        v: "icon21",
+        w: "icon22",
+        x: "icon23",
+        y: "icon0",
+        z: "icon1"
+      }
+
+      var markerIconList = Object.values(markerIconDict);
     </script>
 
     <script src="js/ml_js.js"></script>
