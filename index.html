@@ -36,6 +36,10 @@
       a[href^="https://maps.google.com/maps"] img {
         transition: opacity 400ms;
       }
+
+      .pac-container {
+        z-index: 1054 !important;
+      }
     </style>
 
     <title>Pad Pricer 🏠</title>
@@ -52,6 +56,11 @@
 
       <div class="collapse navbar-collapse" id="js-hamburger">
         <div class="dropdown-divider my-3 d-lg-none"></div>
+
+        <form class="px-5 py-3 px-lg-3 py-lg-0 ml-auto">
+          <input class="form-control" id="js-autocomplete" type="search" placeholder="Enter Address" aria-label="Search">
+        </form>
+
         <form class="px-4 py-3 d-lg-none text-light">
           <div class="form-group row pb-3 pb-sm-0">
             <label for="staticEmail" class="d-none d-sm-block col-sm-5 col-form-label text-right">City</label>
@@ -159,10 +168,14 @@
           </div>
         </div>
         <div class="col-lg-8 p-4 p-sm-5">
+
           <div class="jumbotron cs-full-height p-3 m-0" style="position: relative">
+
             <h2 class="cs-price js-price js-price-top m-0" style="right: 24px; top: 24px;"><span class="badge badge-lg badge-success border border-success">$160</span></h2>
+
             <div class="cs-full-height card" id="map" style="border: none;">
             </div>
+
             <h2 class="cs-price js-price js-price-bot m-0 js-custom-hidden" style="left: 24px; bottom: 24px;"><span class="badge badge-lg badge-success border border-success">$160</span></h2>
 
             <div class="alert alert-info alert-dismissible fade show ml-3" style="position: absolute; left: 0; bottom: 0;" role="alert">
@@ -173,6 +186,7 @@
             </div>
 
           </div>
+
         </div>
       </div>
     </div>
@@ -373,6 +387,28 @@
         });
 
         marker.addListener('dragend', dragMarker);
+
+        var input = document.getElementById('js-autocomplete');
+
+        autocomplete = new google.maps.places.Autocomplete(
+          input, {strictBounds: true}
+        );
+
+        autocomplete.addListener('place_changed', function() {
+          var place = autocomplete.getPlace();
+
+          marker.setPosition({
+            lat: place.geometry.location.lat(),
+            lng: place.geometry.location.lng()
+          });
+
+          if ( !map.getBounds().contains(marker.getPosition()) ) {
+              map.panTo(marker.getPosition());
+          }
+
+          $(document).trigger("updatePrice");
+        })
+
       }
     </script>
 
@@ -384,7 +420,7 @@
       }
     </script>
 
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCR8H32g_VhI6inHswabgSFSC32-E3bP0Y&callback=initMap"
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCR8H32g_VhI6inHswabgSFSC32-E3bP0Y&callback=initMap&libraries=places"
     async defer></script>
 
     <script>
@@ -405,7 +441,7 @@
       });
 
       function toggleCity(curCity) {
-        $("#navbarDropdownMenuLink").text(" " + titleize(curCity) + " ");
+        $("#navbarDropdownMenuLink").text(" " + titleize(curCity).replace("City", "") + " ");
         $("#js-city-dropdown a").removeClass("d-none");
         $(".js-" + curCity).addClass("d-none");
         $('.js-city-select option:contains("' + titleize(curCity) + '")').prop('selected', true)
@@ -424,6 +460,7 @@
 
     <script src="js/ml_js.js"></script>
     <script src="js/ml_web.js"></script>
+    <script src="js/libsvm.js"></script>
     <script src="js/standard_scaler.js"></script>
     <script src="js/global_learners.js"></script>
     <script src="js/globals.js"></script>

@@ -15,6 +15,13 @@ function updateCityMap() {
     }
   })
 
+  autocomplete.setBounds({
+    east: cityBounds[selectedCity].maxLon+horDist,
+    north: cityBounds[selectedCity].maxLat+verDist,
+    south: cityBounds[selectedCity].minLat-verDist,
+    west: cityBounds[selectedCity].minLon-horDist
+  })
+
   map.setCenter({
     lat: cityBounds[selectedCity].centerLat,
     lng: cityBounds[selectedCity].centerLon
@@ -24,6 +31,8 @@ function updateCityMap() {
     lat: cityBounds[selectedCity].centerLat,
     lng: cityBounds[selectedCity].centerLon
   })
+
+  $("#js-autocomplete").val("")
 
   $(document).trigger("updatePrice");
 
