@@ -10,6 +10,8 @@ function prepareRegression(XData, XInput, usedCity, useErrors) {
 
   if ( useErrors ) { spotsList.push(cityErrorSpots); }
 
+  var oneFootInMiles = 0.000189394;
+
   spotsList.forEach(function (citySpots) {
     citySpots[usedCity].forEach(function (curSpot) {
       var thisLatLng = [
@@ -29,9 +31,11 @@ function prepareRegression(XData, XInput, usedCity, useErrors) {
           ]
         }
 
-        return Math.log10(0.05 + haversineDistance(
-          thisLatLng, thatLatLng
-        ))
+        return Math.log10(
+          oneFootInMiles + haversineDistance(
+            thisLatLng, thatLatLng
+          )
+        )
       }))
       //
     })
