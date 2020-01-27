@@ -411,7 +411,15 @@
           $(document).trigger("updatePrice");
         })
 
-        clusterer = new MarkerClusterer(map, [], {imagePath: "images/m"});
+        markerClusterer = new MarkerClusterer(map, [], {
+          imagePath: "images/m",
+          zoomOnClick: false
+        });
+
+        google.maps.event.addListener(markerClusterer, 'clusterclick', function(cluster){
+            map.setCenter(cluster.getCenter());
+            map.setZoom(map.getZoom()+2);
+        });
 
         $(".alert a").on("click", function() {
           marker.setAnimation(4);

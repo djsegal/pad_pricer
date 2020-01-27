@@ -31,7 +31,7 @@ function runMender() {
         title: ( Math.round(100 * curCentroid[2]) + "%" )
       });
 
-      clusterer.addMarker(tmpMarker);
+      markerClusterer.addMarker(tmpMarker);
     });
   });
 

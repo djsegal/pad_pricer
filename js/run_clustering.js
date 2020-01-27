@@ -35,7 +35,7 @@ function runClustering() {
         title: (curCurrency + Math.round(2*Math.pow(10, curCentroid[2])))
       });
 
-      clusterer.addMarker(tmpMarker);
+      markerClusterer.addMarker(tmpMarker);
     });
   });
 
