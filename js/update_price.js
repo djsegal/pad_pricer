@@ -2,7 +2,9 @@ function updatePrice() {
 
   var cantPrice = (
     Object.keys(curScalers).length == 0 ||
-    Object.keys(curRegressors).length == 0
+    Object.keys(curRegressors).length == 0 ||
+    Object.keys(curPCAs).length == 0 ||
+    Object.keys(curLearners).length == 0
   );
 
   if ( cantPrice ) { return; }

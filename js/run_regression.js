@@ -1,7 +1,5 @@
 curLambdas = [
-  10/3, 1/3, 1/30, 100/3,
-  20/3, 2/3, 2/30, 200/3,
-  30/3, 3/3, 3/30, 3/300
+  0.05, 0.5, 5.0, 50.0
 ]
 
 var needsRegression = true;
@@ -17,9 +15,14 @@ function runRegression() {
   cityList.forEach(_runRegression);
 
   if ( needsRegression ) {
+    var copyCat = JSON.parse(JSON.stringify(curRegressors));
+
+    copyCat["berlin"] = copyCat["berlin"].serializeModel()
+    copyCat["san-francisco"] = copyCat["san-francisco"].serializeModel()
+
     console.log("")
     console.log("curRegressors")
-    console.log(JSON.stringify(curRegressors))
+    console.log(JSON.stringify(copyCat))
 
     console.log("curScalers")
     console.log(JSON.stringify(curScalers))
@@ -28,7 +31,7 @@ function runRegression() {
 
   console.log("regression ...done");
 
-  $(document).trigger("updatePrice");
+  $(document).trigger("updateCityMap");
 }
 
 function _runRegression(usedCity) {
@@ -51,15 +54,30 @@ function _runRegression(usedCity) {
     XCorrector = prepareRegression(XCorrector, cityData[usedCity].X_corrector, usedCity, true)
     XCorrector = XClean(curScaler.transform(XCorrector).transpose().to2DArray());
 
+    if ( usedCity == "san-francisco" || usedCity == 'berlin' ) {
+      XPredictor = XPredictor.toArray()
+      XCorrector = XCorrector.toArray()
+    }
+
     bestLambda = -1
     bestScore = Number.NEGATIVE_INFINITY
 
     curLambdas.forEach(function (curLambda) {
-      var curRegression = RidgeRegression({lambda: curLambda});
+      if ( usedCity == "san-francisco" || usedCity == 'berlin' ) {
+        var curRegression = new libsvm({
+          type: libsvm.SVM_TYPES.NU_SVR,
+          nu: curLambda,
+          quiet: true
+        });
+      } else {
+        var curRegression = RidgeRegression({lambda: curLambda});
+      }
+
       curRegression.train(XPredictor, yPredictor)
 
       curScore = R2(curRegression, XCorrector, yCorrector);
 
+      if ( isNaN(curScore) ) { return; }
       if ( curScore < bestScore ) { return; };
 
       bestScore = curScore;
@@ -79,7 +97,18 @@ function _runRegression(usedCity) {
     XTrain = prepareRegression(XTrain, cityData[usedCity].X_train, usedCity, true)
     XTrain = XClean(curScaler.fitTransform(XTrain).transpose().to2DArray());
 
-    var curRegression = RidgeRegression({lambda: bestLambda});
+    if ( usedCity == "san-francisco" || usedCity == 'berlin' ) {
+      XTrain = XTrain.toArray()
+
+      var curRegression = new libsvm({
+        type: libsvm.SVM_TYPES.NU_SVR,
+        nu: bestLambda,
+        quiet: true
+      });
+    } else {
+      var curRegression = RidgeRegression({lambda: bestLambda});
+    }
+
     curRegression.train(XTrain, yTrain)
 
     curRegressors[usedCity] = curRegression
@@ -96,6 +125,10 @@ function _runRegression(usedCity) {
     var XTest = pickCols(cityData[usedCity].X_test, RegressorColumns, colNames)
     XTest = prepareRegression(XTest, cityData[usedCity].X_test, usedCity, true)
     XTest = XClean(curScaler.transform(XTest).transpose().to2DArray());
+
+    if ( usedCity == "san-francisco" || usedCity == 'berlin' ) {
+      XTest = XTest.toArray()
+    }
 
     console.log(R2(curRegression, XTest, yTest));
   }

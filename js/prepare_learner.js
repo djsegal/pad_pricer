@@ -25,6 +25,16 @@ function prepareLearner(XInput, usedCity) {
     return XData[0][curIndex] * latitudePerLongitude[curIndex]
   })
 
+  if ( typeof curPCAs[usedCity] === "undefined" ) {
+    curPCA = new ML.PCA(customTranspose(XData), {scale: true});
+
+    curPCAs[usedCity] = curPCA;
+  } else {
+    curPCA = curPCAs[usedCity];
+  }
+
+  replacedXData = curPCA.predict(customTranspose(XData)).transpose().to2DArray();
+
   XData.push([...Array(curCount).keys()].map(function (curIndex) {
     return Math.sqrt(
       Math.pow(XData[0][curIndex], 2) + Math.pow(XData[1][curIndex], 2)
@@ -36,6 +46,11 @@ function prepareLearner(XInput, usedCity) {
       XData[1][curIndex], XData[0][curIndex]
     )
   }))
+
+  // XData.push(Object.values(XInput.accommodates))
+
+  XData[0] = replacedXData[0]
+  XData[1] = replacedXData[1]
 
   XData = customTranspose(XData)
 

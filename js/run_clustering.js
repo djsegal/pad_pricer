@@ -37,7 +37,6 @@ function runClustering() {
     });
   });
 
-  $(document).trigger("updateCityMap");
   $(document).trigger("clusteredAirbnbData");
 }
 
