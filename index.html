@@ -286,6 +286,9 @@
           },
         });
 
+        var transitLayer = new google.maps.TransitLayer();
+        transitLayer.setMap(map);
+
         marker = new google.maps.Marker({
           map: map,
           draggable: true,
