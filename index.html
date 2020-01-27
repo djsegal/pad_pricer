@@ -181,7 +181,7 @@
               <a target="_blank" href="https://www.airbnb.com"><span style="vertical-align: bottom;" class="badge badge-lg badge-success border border-success">$160</span></a>
             </h2>
 
-            <div class="alert alert-info alert-dismissible fade show ml-3" style="position: absolute; left: 0; bottom: 0;" role="alert">
+            <div class="alert alert-info alert-dismissible fade show mx-3" style="position: absolute; left: 0; bottom: 0;" role="alert">
               ℹ️ The price updates as you move the <a href="#" class="text-danger"><u>red</u></a> marker.
               <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
@@ -435,6 +435,9 @@
     <script>
       function dragMarker(curEvent) {
         $(".alert-dismissible .close").click();
+
+        $(".js-price-bot").css("left", "24px");
+        $(".js-price-bot").css("bottom", "24px");
 
         $(document).trigger("updatePrice");
       }
