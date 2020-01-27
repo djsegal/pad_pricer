@@ -28,7 +28,7 @@ function runMender() {
           url: "http://maps.google.com/mapfiles/kml/pal5/" + markerIconList[Object.values(cityHotSpots)[curIndex].length+subIndex] + ".png",
           scaledSize: new google.maps.Size(22, 22)
         },
-        title: (curCurrency + Math.round(2*Math.pow(10, curCentroid[2])))
+        title: ( Math.round(100 * curCentroid[2]) + "%" )
       });
 
       clusterer.addMarker(tmpMarker);
