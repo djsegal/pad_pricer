@@ -444,9 +444,11 @@
               var orig_listener = listener;
               listener = function (event) {
               var suggestion_selected = $(".pac-item-selected").length > 0;
-                if (event.which == 13 && !suggestion_selected) {
-                  var simulated_downarrow = $.Event("keydown", { keyCode:40, which:40 });
-                  orig_listener.apply(input, [simulated_downarrow]);
+                if (event.which == 13) {
+                  if ( !suggestion_selected ) {
+                    var simulated_downarrow = $.Event("keydown", { keyCode:40, which:40 });
+                    orig_listener.apply(input, [simulated_downarrow]);
+                  }
                   event.preventDefault();
                 }
                 orig_listener.apply(input, [event]);
