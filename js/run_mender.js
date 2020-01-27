@@ -57,10 +57,11 @@ function _runMender(usedCity) {
   var curRegression = RidgeRegression();
   curRegression.train(XPredictor, yPredictor)
 
-  var yPredicted = curRegression.predict(XCorrector);
+  var yActual = curRegression.predict(XCorrector);
+  console.log(R2(curRegression, XCorrector, yCorrector));
 
   curErrors = [...Array(yCorrector.length).keys()].map(function (curIndex) {
-    return yCorrector[curIndex] - yPredicted[curIndex];
+    return yCorrector[curIndex] - yActual[curIndex];
   })
 
   curErrors = curErrors.map(function(curError) {
