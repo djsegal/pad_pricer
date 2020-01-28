@@ -301,6 +301,7 @@
               west: -74.14781
             }
           },
+          disableDoubleClickZoom: true
         });
 
         var transitLayer = new google.maps.TransitLayer();
@@ -391,6 +392,14 @@
 
         marker.addListener('drag', dragMarker);
 
+        google.maps.event.addListener(map, 'dblclick', function(e) {
+          var positionDoubleclick = e.latLng;
+          marker.setPosition(positionDoubleclick);
+
+          $("#js-autocomplete").val("")
+          $(document).trigger("updatePrice");
+        });
+
         var input = document.getElementById('js-autocomplete');
         selectFirstOnEnter(input);
 
@@ -439,6 +448,7 @@
         $(".js-price-bot").css("left", "24px");
         $(".js-price-bot").css("bottom", "24px");
 
+        $("#js-autocomplete").val("")
         $(document).trigger("updatePrice");
       }
     </script>
