@@ -19,11 +19,18 @@ function updatePrice() {
 
   curInput = prepareRegression(curInput, markerPosition, selectedCity, true)
 
-  cur_input = curScalers[selectedCity].transform(
+
+  curInput = curScalers[selectedCity].transform(
     customTranspose([curInput])
   );
 
-  var curPrice = curRegressors[selectedCity].predict(cur_input.to2DArray());
+  usedIndices = curFeatureIndices[selectedCity];
+
+  curInput = new ML.Matrix([
+    usedIndices.map(i => curInput.to1DArray()[i])
+  ]).to2DArray()
+
+  var curPrice = curRegressors[selectedCity].predict(curInput);
 
   curPrice = Math.pow(10, curPrice);
 
