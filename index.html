@@ -454,7 +454,20 @@
         });
 
         $(".alert a").on("click", function() {
-          marker.setAnimation(4);
+          if ( !map.getBounds().contains(marker.getPosition()) ) {
+            var bounds = map.getBounds();
+            bounds.extend(marker.position);
+
+            map.fitBounds(bounds);
+
+            google.maps.event.addListenerOnce(map, 'idle', function(){
+              setTimeout(function(){ marker.setAnimation(4);; }, 125);
+            });
+
+            map.panToBounds(bounds);
+          } else {
+            marker.setAnimation(4);
+          }
         })
 
       }
