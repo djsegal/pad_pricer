@@ -15,12 +15,15 @@ function updateCityMap() {
     }
   })
 
-  autocomplete.setBounds({
+  autocompleteBounds = {
     east: cityBounds[selectedCity].maxLon,
     north: cityBounds[selectedCity].maxLat,
     south: cityBounds[selectedCity].minLat,
     west: cityBounds[selectedCity].minLon
-  })
+  }
+
+  autocompleteTop.setBounds(autocompleteBounds);
+  autocompleteBot.setBounds(autocompleteBounds);
 
   map.setCenter({
     lat: cityBounds[selectedCity].centerLat,

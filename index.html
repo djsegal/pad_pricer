@@ -56,8 +56,8 @@
       <div class="collapse navbar-collapse" id="js-hamburger">
         <div class="dropdown-divider my-3 d-lg-none"></div>
 
-        <form class="px-5 py-3 px-lg-3 py-lg-0 ml-auto">
-          <input class="form-control" id="js-autocomplete" type="search" placeholder="Enter Address" aria-label="Search">
+        <form class="px-5 py-3 px-lg-3 py-lg-0 ml-auto d-none d-lg-block">
+          <input class="form-control js-autocomplete" id="js-autocomplete-top" type="search" placeholder="Enter Address" aria-label="Search">
         </form>
 
         <form class="px-4 py-3 d-lg-none text-light">
@@ -91,6 +91,11 @@
             </div>
           </div>
         </form>
+
+        <form class="px-5 pt-1 mb-3 pb-3 px-lg-3 py-lg-0 ml-auto d-lg-none">
+          <input class="form-control js-autocomplete" id="js-autocomplete-bot" type="search" placeholder="Enter Address" aria-label="Search">
+        </form>
+
         <div class="text-light mb-1 text-right d-lg-none">
           Powered by <a target="_blank" style="text-decoration: underline" class="text-light" href="http://insideairbnb.com/get-the-data.html">Airbnb</a>
         </div>
@@ -396,33 +401,47 @@
           var positionDoubleclick = e.latLng;
           marker.setPosition(positionDoubleclick);
 
-          $("#js-autocomplete").val("")
+          $(".js-autocomplete").val("")
           $(document).trigger("updatePrice");
         });
 
-        var input = document.getElementById('js-autocomplete');
-        selectFirstOnEnter(input);
+        autocompleteFunc = function(autocomplete) {
+          return function () {
+            var place = autocomplete.getPlace();
 
-        autocomplete = new google.maps.places.Autocomplete(
-          input, {strictBounds: true}
+            if ( place.name.trim() === "" ) { return; }
+
+            marker.setPosition({
+              lat: place.geometry.location.lat(),
+              lng: place.geometry.location.lng()
+            });
+
+            if ( !map.getBounds().contains(marker.getPosition()) ) {
+                map.panTo(marker.getPosition());
+            }
+
+            $(".js-autocomplete").val(place.formatted_address);
+
+            $(document).trigger("updatePrice");
+          }
+        }
+
+        var inputTop = document.getElementById('js-autocomplete-top');
+        selectFirstOnEnter(inputTop);
+
+        autocompleteTop = new google.maps.places.Autocomplete(
+          inputTop, {strictBounds: true}
         );
 
-        autocomplete.addListener('place_changed', function() {
-          var place = autocomplete.getPlace();
+        var inputBot = document.getElementById('js-autocomplete-bot');
+        selectFirstOnEnter(inputBot);
 
-          if ( place.name.trim() === "" ) { return; }
+        autocompleteBot = new google.maps.places.Autocomplete(
+          inputBot, {strictBounds: true}
+        );
 
-          marker.setPosition({
-            lat: place.geometry.location.lat(),
-            lng: place.geometry.location.lng()
-          });
-
-          if ( !map.getBounds().contains(marker.getPosition()) ) {
-              map.panTo(marker.getPosition());
-          }
-
-          $(document).trigger("updatePrice");
-        })
+        autocompleteTop.addListener('place_changed', autocompleteFunc(autocompleteTop))
+        autocompleteBot.addListener('place_changed', autocompleteFunc(autocompleteBot))
 
         markerClusterer = new MarkerClusterer(map, [], {
           imagePath: "images/m",
@@ -448,7 +467,7 @@
         $(".js-price-bot").css("left", "24px");
         $(".js-price-bot").css("bottom", "24px");
 
-        $("#js-autocomplete").val("")
+        $(".js-autocomplete").val("")
         $(document).trigger("updatePrice");
       }
     </script>
@@ -521,7 +540,7 @@
           curCurrency= "$";
         }
 
-        $("#js-autocomplete").val("");
+        $(".js-autocomplete").val("");
         $(document).trigger("updateCityMap");
       }
     </script>
