@@ -103,3 +103,6 @@ if ( !missingJson ) {
 
 var runTestScore = false;
 
+// var cityMarkers = {};
+
+var cityMarkers = {"san-francisco":[37.75226049,-122.43749842],"new-york-city":[40.72163,-73.95465],"paris":[48.88864,2.3452],"berlin":[52.53601098,13.3830502]};

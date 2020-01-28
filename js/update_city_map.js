@@ -28,11 +28,9 @@ function updateCityMap() {
   })
 
   marker.setPosition({
-    lat: cityBounds[selectedCity].centerLat,
-    lng: cityBounds[selectedCity].centerLon
+    lat: cityMarkers[selectedCity][0],
+    lng: cityMarkers[selectedCity][1]
   })
-
-  $("#js-autocomplete").val("")
 
   $(document).trigger("updatePrice");
 

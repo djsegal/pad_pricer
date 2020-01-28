@@ -17,8 +17,9 @@ function updatePrice() {
 
   if ( typeof markerPosition === "undefined" ) { return; }
 
-  curInput = prepareRegression(curInput, markerPosition, selectedCity, true)
+  cityMarkers[selectedCity] = [markerPosition.lat(), markerPosition.lng()]
 
+  curInput = prepareRegression(curInput, markerPosition, selectedCity, true)
 
   curInput = curScalers[selectedCity].transform(
     customTranspose([curInput])

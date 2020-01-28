@@ -171,14 +171,14 @@
           <div class="jumbotron cs-full-height p-3 m-0" style="position: relative">
 
             <h2 class="cs-price js-price js-price-top m-0" style="right: 24px; top: 24px;">
-              <a target="_blank" href="https://www.airbnb.com"><span style="vertical-align: top;" class="badge badge-lg badge-success border border-success">$160</span></a>
+              <a target="_blank" href="https://www.airbnb.com"><span style="vertical-align: top;" class="badge badge-lg badge-success border border-success">$174</span></a>
             </h2>
 
             <div class="cs-full-height card" id="map" style="border: none;">
             </div>
 
             <h2 class="cs-price js-price js-price-bot m-0 js-custom-hidden" style="left: 22px; bottom: 22px;">
-              <a target="_blank" href="https://www.airbnb.com"><span style="vertical-align: bottom;" class="badge badge-lg badge-success border border-success">$160</span></a>
+              <a target="_blank" href="https://www.airbnb.com"><span style="vertical-align: bottom;" class="badge badge-lg badge-success border border-success">$174</span></a>
             </h2>
 
             <div class="alert alert-info alert-dismissible fade show mx-3" style="position: absolute; left: 0; bottom: 0;" role="alert">
@@ -521,6 +521,7 @@
           curCurrency= "$";
         }
 
+        $("#js-autocomplete").val("");
         $(document).trigger("updateCityMap");
       }
     </script>
@@ -579,6 +580,7 @@
     <script src="js/update_city_map.js"></script>
     <script src="js/update_price.js"></script>
     <script src="js/haversine_distance.js"></script>
+    <script src="js/complete_run.js"></script>
 
   </body>
 

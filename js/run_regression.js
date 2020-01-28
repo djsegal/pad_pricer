@@ -36,7 +36,7 @@ function runRegression() {
 
   console.log("regression ...done");
 
-  $(document).trigger("updateCityMap");
+  $(document).trigger("regressedAirbnbData");
 }
 
 function _runRegression(usedCity) {
