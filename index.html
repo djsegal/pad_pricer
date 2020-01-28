@@ -30,6 +30,7 @@
 
       .js-custom-hidden {
         opacity: 0 !important;
+        pointer-events: none;
       }
 
       a[href^="https://maps.google.com/maps"] img {
@@ -186,9 +187,9 @@
               <a target="_blank" href="https://www.airbnb.com"><span style="vertical-align: bottom;" class="badge badge-lg badge-success border border-success">$174</span></a>
             </h2>
 
-            <div class="alert alert-info alert-dismissible fade show mx-3" style="position: absolute; left: 0; bottom: 0;" role="alert">
-              ℹ️ The price updates as you move the <a href="#" class="text-danger"><u>red</u></a> marker.
-              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <div class="alert alert-info alert-dismissible fade show mx-3 pl-2 pr-3 pl-sm-3 pr-sm-5" style="position: absolute; left: 0; bottom: 0;" role="alert">
+              <span class="ml-1">ℹ️ Drag the</span> <a href="#" class="text-danger"><u>marker</u></a> <span class="mr-sm-3">to update price.</span>
+              <button type="button" class="close d-none d-sm-block" data-dismiss="alert" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
               </button>
             </div>
